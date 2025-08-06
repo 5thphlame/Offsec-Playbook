@@ -70,11 +70,13 @@ CrackMapExec
 CrackMapExec is a well-known network service exploitation tool that we will use throughout this module. It allows us to perform enumeration, command execution, and post-exploitation attacks in Windows environments. It supports various network protocols, such as SMB, LDAP, RDP, and SSH. If anonymous access is permitted, we can retrieve the password policy without credentials with the following command:
 
 crackmapexec smb 10.211.11.10 --pass-pol
+
 nxc smb 10.211.11.10 --pass-pol
 
 NB i prefer to use Netexec
 
 crackmapexec smb 10.211.11.20 -u users.txt -p passwords.txt
+
 nxc smb 10.211.11.20 -u users.txt -p passwords.txt
 
 
