@@ -130,6 +130,27 @@ In brief, whoami /all informs you of your current power, be it due to group memb
 #### Searching the Registry
     reg query HKLM /f "password" /t REG_SZ /s
 
+### Enumeration With BloodHound
+    Data Collection: 
+                    SharpHound.exe: .\SharpHound.exe --CollectionMethods All --Domain tryhackme.loc --ExcludeDCs
+                    AzureHound.ps1:
+                    SharpHound.ps1:
+                    BloodHound.py:  bloodhound-python -u asrepuser1 -p qwerty123! -d tryhackme.loc -ns 10.211.12.10 -c All --zip
+
+### Enumeration With PowerShell’s ActiveDirectory and PowerView Modules
+            - Import-Module ActiveDirectory
+                -- Get-ADUser -Filter * 
+                -- Get-ADUser -Identity Administrator -Properties LastLogonDate,MemberOf,Title,Description,PwdLastSet
+                -- Get-ADGroup -Filter * | Select Name
+                -- Get-ADDefaultDomainPasswordPolicy
+            - Import-Module .\PowerView.ps1
+                -- Get-DomainUser
+                -- Get-DomainUser *admin*
+                -- Get-DomainGroup "*admin*"
+                -- Get-DomainComputer
+                -- Get-DomainUser -AdminCount
+                -- Get-DomainUser -SPN
+
 
 
 
