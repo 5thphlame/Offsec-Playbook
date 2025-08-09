@@ -152,10 +152,7 @@ In brief, whoami /all informs you of your current power, be it due to group memb
                 -- Get-DomainUser -SPN
 
 
-
-
-## AD: Authenticated Enumeration 
-
+ 
 ## Windows Privilege Escalation
 
 
